@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn {
+	@apply px-5 py-2 rounded-xl font-semibold hover:-translate-y-[1px] transition duration-500 text-white inline-block;
+}
+.btn.btn-1 {
+	@apply bg-red-600 border-2 border-red-500 hover:border-red-400;
+}
