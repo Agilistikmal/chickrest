@@ -3,13 +3,13 @@
 	import Header from '../components/Header.svelte';
 </script>
 
-<div class="grid grid-cols-3">
-	<div class="from-red-800 to-red-500 bg-gradient-to-b min-h-screen text-white px-5 relative">
-		<div class="text-center mt-16">
-			<Header />
-		</div>
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+<div class="grid md:grid-cols-3 grid-cols-none">
+	<div>
+		<Header />
 	</div>
-	<main class="col-span-2 px-5">
+	<main class="md:col-span-2" id="main">
 		<slot />
 	</main>
 </div>
