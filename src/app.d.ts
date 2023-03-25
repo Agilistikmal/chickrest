@@ -10,3 +10,16 @@ declare global {
 }
 
 export {};
+
+export type Table = {
+	_id: string;
+	table_number: number;
+	max_people: number;
+	booked_on: TableBookedOn[];
+};
+
+export type TableBookedOn = {
+	email: string;
+	date: string;
+	time: string;
+};

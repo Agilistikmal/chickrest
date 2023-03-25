@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, SchemaTypes } from 'mongoose';
 
 const TableSchema = new Schema(
 	{
@@ -10,12 +10,14 @@ const TableSchema = new Schema(
 			type: Number,
 			required: true
 		},
-		booked_by: {
-			type: String,
-			required: false
-		},
 		booked_on: {
-			type: [String],
+			type: [
+				new Schema({
+					email: String,
+					date: String,
+					time: String
+				})
+			],
 			required: false
 		},
 		updated_at: {

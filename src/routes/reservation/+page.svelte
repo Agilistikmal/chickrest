@@ -1,22 +1,27 @@
 <script lang="ts">
+	import { TableModel } from '$lib/database/schema/Table';
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
+	import type { Table } from '../../app';
 	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
-	let tables = data.tables;
+	let tables: Table[] = data.tables;
 
 	let email: string;
 	let date = new Date().toISOString().split('T')[0];
 	let time: string;
 	let people: number = 1;
+	let id: string = tables[0]._id;
 
 	let loading: boolean = true;
 	onMount(() => (loading = false));
 
-	function handleChange() {
-		const d = data.tables.filter((m: any) => !m.booked_on.includes(date));
-		tables = d;
+	async function handleChange() {
+		const get = await fetch(`/api/tables?date=${date}&people=${people}`);
+		const data: Table[] = await get.json();
+		tables = data;
+		id = tables[0]._id;
 	}
 </script>
 
@@ -30,6 +35,7 @@
 				class="p-5 rounded-xl bg-slate-100 max-w-md w-full shadow-xl border-b-8 border-red-600 border-2 hover:-translate-y-1 transition duration-500"
 				in:fly={{ y: 50, duration: 1000 }}
 			>
+				<input type="text" name="id" bind:value={id} style="display: none;" />
 				<div>
 					<h1 class="font-semibold text-lg">Email address</h1>
 					<input
@@ -90,7 +96,8 @@
 						required
 					/>
 				</div>
-				<p class="text-center mt-5">{tables.length} tables found</p>
+				<p class="text-center mt-5">{tables.length} tables available</p>
+				<p class="text-center text-sm">Your table number: {tables[0].table_number || '???'}</p>
 				<button class="btn btn-1 mt-5 w-full">Book now</button>
 			</form>
 			<div
