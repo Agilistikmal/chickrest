@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
-import { MONGODB_CONNECTION_STRING } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 
 mongoose
-	.connect(MONGODB_CONNECTION_STRING, {
+	.connect(env.MONGODB_CONNECTION_STRING, {
 		// @ts-ignore
 		useNewUrlParser: true,
 		useUnifiedTopology: true
