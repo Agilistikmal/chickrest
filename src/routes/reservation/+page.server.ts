@@ -16,6 +16,7 @@ export const actions = {
 		const time = data.get('time') as unknown as string;
 		const people = data.get('people') as unknown as number;
 		const id = data.get('id') as unknown as string;
+		const table_number = data.get('table_number') as unknown as string;
 
 		const te = await TableModel.findByIdAndUpdate(id, {
 			$push: {
@@ -26,6 +27,15 @@ export const actions = {
 				}
 			}
 		});
-		console.log(te);
+		te?.save();
+
+		return {
+			success: true,
+			email,
+			date,
+			time,
+			id,
+			table_number
+		};
 	}
 } satisfies Actions;
